@@ -1,38 +1,37 @@
 <!DOCTYPE html>
-<html lang="id">
+<html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Tic Tac Toe </title>
-  <link rel="stylesheet" href="style.css">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>🎨 Pixel Art Generator</title>
+  <link rel="stylesheet" href="style.css"/>
 </head>
 <body>
-  <h1>Tic Tac Toe</h1>
+  <div class="wrapper">
+    <h1 class="title">🎨 Pixel Art Generator</h1>
+    <div class="options">
+      <div class="sliders">
+        <label for="width-range">Width: <span id="width-value">16</span></label>
+        <input type="range" id="width-range" min="5" max="40" value="16">
 
-  <div class="scoreboard">
-    <div class="score">X: <span id="scoreX">0</span></div>
-    <div class="score">Draw: <span id="scoreDraw">0</span></div>
-    <div class="score">O: <span id="scoreO">0</span></div>
+        <label for="height-range">Height: <span id="height-value">16</span></label>
+        <input type="range" id="height-range" min="5" max="40" value="16">
+      </div>
+
+      <div class="tools">
+        <input type="color" id="color-input" value="#ff4757">
+        <button id="submit-grid">Create Grid</button>
+        <button id="erase-btn">Erase</button>
+        <button id="paint-btn">Paint</button>
+        <button id="clear-grid">Clear</button>
+      </div>
+    </div>
+
+    <div class="container"></div>
   </div>
-
-  <div class="mode-select">
-    Mode: 
-    <select id="mode">
-      <option value="pvp">2 Player</option>
-      <option value="easy">Easy Bot</option>
-      <option value="medium">Medium Bot</option>
-      <option value="hard">Hard Bot</option>
-    </select>
-  </div>
-
-  <div id="board" class="board"></div>
-  <div id="status" class="status">Turn: X</div>
-
-  <div class="controls">
-    <button id="resetBoard" class="btn">Reset Board</button>
-    <button id="resetScore" class="btn">Reset Score</button>
-  </div>
-
-  <script src="./index.js"></script>
+  <footer>
+    <p>Made with ❤️ by You</p>
+  </footer>
+  <script src="index.js"></script>
 </body>
 </html>
