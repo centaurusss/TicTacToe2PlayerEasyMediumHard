@@ -179,37 +179,62 @@ function findWinningMove(player) {
   return null;
 }
 
-function getBoardArray() { return cells.map(c=>c.textContent==="X"?"X":c.textContent==="O"?"O":""); }
+function getBoardArray() {
+  return cells.map(c => c.textContent === "X" ? "X" : c.textContent === "O" ? "O" : "");
+}
 
 // Minimax
 function minimax(newBoard, player) {
   const avail = newBoard.map((v,i)=>v===""?i:null).filter(v=>v!==null);
   const winner = checkWinner(newBoard);
-  if(winner==="X") return {score:-10};
-  if(winner==="O") return {score:10};
-  if(avail.length===0) return {score:0};
+  if (winner === "X") return {score: -10};
+  if (winner === "O") return {score: 10};
+  if (winner === "Draw") return {score: 0};
 
   const moves = [];
-  for(let i of avail){
+  for (let i of avail) {
     const move = {};
     move.index = i;
-    newBoard[i]=player;
-    const result = minimax(newBoard, player==="O"?"X":"O");
-    move.score=result.score;
-    newBoard[i]="";
+    newBoard[i] = player;
+    const result = minimax(newBoard, player === "O" ? "X" : "O");
+    move.score = result.score;
+    newBoard[i] = "";
     moves.push(move);
   }
 
   let bestMove;
-  if(player==="O"){
-    let bestScore=-Infinity;
-    for(let m of moves){ if(m.score>bestScore){ bestScore=m.score; bestMove=m; } }
+  if (player === "O") {
+    let bestScore = -Infinity;
+    for (let m of moves) {
+      if (m.score > bestScore) {
+        bestScore = m.score;
+        bestMove = m;
+      }
+    }
     return bestMove;
   } else {
-    let bestScore=Infinity;
-    for(let m of moves){ if(m.score<bestScore){ bestScore=m.score; bestMove=m; } }
+    let bestScore = Infinity;
+    for (let m of moves) {
+      if (m.score < bestScore) {
+        bestScore = m.score;
+        bestMove = m;
+      }
+    }
     return bestMove;
   }
 }
 
-// Check winner for minimax
+function checkWinner(board) {
+  const winPatterns = [
+    [0,1,2],[3,4,5],[6,7,8],
+    [0,3,6],[1,4,7],[2,5,8],
+    [0,4,8],[2,4,6]
+  ];
+  for (let pattern of winPatterns) {
+    const [a,b,c] = pattern;
+    if (board[a] && board[a] === board[b] && board[a] === board[c]) {
+      return board[a];
+    }
+  }
+  return board.every(v => v !== "") ? "Draw" : null;
+}
